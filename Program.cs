@@ -21,8 +21,9 @@ namespace AddressBookSystem
                 Console.WriteLine("Enter the operation to perform");
                 Console.WriteLine("1.To Add the contact in Address_Book");
                 Console.WriteLine("2.To Display the contact in Address Book");
-                Console.WriteLine("3.TO Edit the contac in Address Book");
-                Console.WriteLine("4.TO Exit from the Address Book");
+                Console.WriteLine("3.TO Edit the contact in Address Book");
+                Console.WriteLine("4.TO remove the contact in Address Book");
+                Console.WriteLine("5.TO Exit from the Address Book");
                 op = Convert.ToInt32(Console.ReadLine());
                 switch (op)
                 {
@@ -65,9 +66,19 @@ namespace AddressBookSystem
                         Thread.Sleep(2000);
                         Console.Clear() ;
                         break;
+                    case 4:
+                        Console.Clear();
+                        Console.Write("Enter the email of the contact to edit:");
+                        string emailToRemove = Console.ReadLine();
+                        obj.remove(contact,emailToRemove);
+                        Thread.Sleep(2000);
+                        Console.Clear();
+                        break;
+
+
 
                 }
-            } while (op != 4);
+            } while (op != 5);
         }
         public class AddressBook
         {
@@ -111,10 +122,12 @@ namespace AddressBookSystem
             public void edit(List<AddressBook> contact,string email) {
                 string field = "",new_value="";
                 int num = 0;
+                int flag = 0;
                 foreach(var con in contact)
                 {
                     if (con.email == email)
                     {
+                        flag = 1;
                         Console.WriteLine("Enter the field name you want to edit");
                         field=Console.ReadLine();
                         Console.Write($"Enter the new value of the {field}:");
@@ -153,8 +166,32 @@ namespace AddressBookSystem
                                 con.email = new_value;
                             break;                   }
                     }
+                 
                 }
-                Console.WriteLine("Contact is not there in the AddressBook");
+                if(flag == 0)
+                {
+                    Console.WriteLine("Contact is not present in the AddressBook");
+                   
+                }
+              
+            }
+            public void remove(List<AddressBook> contact,string email) {
+                int flag = 0;
+                foreach(AddressBook b in contact)
+                { if (b.email == email)
+                    {
+                        flag = 1;
+                        contact.Remove(b);
+                        Console.WriteLine("The Contact is removed");
+                        break;
+                    }
+
+                 }
+                if(flag == 0)
+                {
+                    Console.WriteLine("Contact is not there in the addressBook");
+                }
+                
             }
         }
     }
