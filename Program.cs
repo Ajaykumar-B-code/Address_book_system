@@ -47,7 +47,6 @@ namespace AddressBookSystem
                         Console.Write("Phone number: ");
                         phone_number = Convert.ToInt64(Console.ReadLine());
                         AddressBook obj1= new AddressBook();
-                        //AddressBook contact1 = new AddressBook(first_name, last_name, address, city, state, zip, phone_number, email);
                         obj1.add(first_name, last_name, address, city, state, zip, phone_number, email);
                         contact.Add(obj1);
                         Console.Clear();
@@ -74,9 +73,6 @@ namespace AddressBookSystem
                         Thread.Sleep(2000);
                         Console.Clear();
                         break;
-
-
-
                 }
             } while (op != 5);
         }
@@ -177,11 +173,11 @@ namespace AddressBookSystem
             }
             public void remove(List<AddressBook> contact,string email) {
                 int flag = 0;
-                foreach(AddressBook b in contact)
-                { if (b.email == email)
+                foreach(AddressBook con in contact)
+                { if (con.email == email)
                     {
                         flag = 1;
-                        contact.Remove(b);
+                        contact.Remove(con);
                         Console.WriteLine("The Contact is removed");
                         break;
                     }
