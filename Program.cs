@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,10 +15,7 @@ namespace AddressBookSystem
         static void Main(string[] args)
         {
             User user = new User();
-           
-
-            AddressBook obj = new AddressBook();
-      
+            
             bool flag = true;
             do
             {
@@ -35,7 +33,6 @@ namespace AddressBookSystem
                         Console.WriteLine("Enter the username");
                         string name = Console.ReadLine();
                         user.add_user(name);
-                        Console.WriteLine("User added successfully in the addressBook");
                         Thread.Sleep(2000);
                         Console.Clear();
                         break;
@@ -48,6 +45,7 @@ namespace AddressBookSystem
                         {
                             if (user.GetPersons().ContainsKey(fname))
                             {
+                                AddressBook obj = user.GetAddressBook(fname);
                                 Console.WriteLine("Enter the operation to perform");
                                 Console.WriteLine("1.To Add the contact in Address_Book");
                                 Console.WriteLine("2.To Display the contact in Address Book");
@@ -119,10 +117,29 @@ namespace AddressBookSystem
 
             public void add_contact()
             {
+                
                 Console.Write("first name: ");
-                string first_name = Console.ReadLine();
+                string firstPattern = "^[a-zA-Z]+$";
+                string first_name;
+                do
+                {
+                    first_name = Console.ReadLine();
+                    if (!Regex.IsMatch(first_name, firstPattern))
+                    {
+                        Console.WriteLine("The Entered name is invalid \n Please Enter the valid firstname");
+                    }
+                } while (!Regex.IsMatch(first_name, firstPattern));            
                 Console.Write("lastname: ");
-                string last_name = Console.ReadLine();
+                string lastPattern = "^[a-zA-Z]+$";
+                string last_name;
+                do
+                {
+                    last_name= Console.ReadLine();
+                    if (!Regex.IsMatch(last_name, lastPattern))
+                    {
+                        Console.WriteLine("The Entered name is invalid \n Please Enter the valid firstname");
+                    }
+                } while (!Regex.IsMatch(last_name, lastPattern));
                 Console.Write("address: ");
                 string address = Console.ReadLine();
                 Console.Write("city: ");
@@ -130,11 +147,38 @@ namespace AddressBookSystem
                 Console.Write("state: ");
                 string state = Console.ReadLine();
                 Console.Write("zip: ");
-                string zip = Console.ReadLine();
+                string zippattern = "^[0-9]{6}$";
+                string zip;
+                do
+                { 
+                    zip = Console.ReadLine();
+                    if(!Regex.IsMatch(zip, zippattern))
+                    {
+                        Console.WriteLine("This Pincode is not valid \n Enter the valid pincode:");
+                    }
+                }
+                while (!Regex.IsMatch(zip, zippattern));
                 Console.Write("email: ");
-                string email = Console.ReadLine();
+                string email_pattern = "^[a-zA-z0-9]+[@]+[a-z]+[.]+[a-z]{1,3}$";
+                String email;
+                do {
+                    email = Console.ReadLine();
+                    if (!Regex.IsMatch(email, email_pattern))
+                    {
+                        Console.Write("Enter the valid mail id:");
+                    } 
+                }while(!Regex.IsMatch(email, email_pattern));
                 Console.Write("Phone number: ");
-                long phone_number = Convert.ToInt64(Console.ReadLine());
+                string phonePattern = "^[7-9][0-9]{9}$";
+                long phone_number;
+                string phone;
+                do {
+                    phone_number = Convert.ToInt64(Console.ReadLine());
+                    phone = Convert.ToString(phone_number);
+                    if (!Regex.IsMatch(phone, phonePattern)){
+                        Console.WriteLine("Enter the valid number");
+                    }
+                } while (!Regex.IsMatch(phone, phonePattern));
                 Contact newcon = new Contact(first_name, last_name, address, city, state, zip, phone_number, email);
                 contacts.Add(newcon);
 
@@ -312,23 +356,23 @@ namespace AddressBookSystem
             public void add_user(string name)
             {
                 AddressBook book = new AddressBook ();
-                dict.Add(name, book);
-            }
-            public void  switch_user(string name)
-            {
-                int flag = 0;
-                AddressBook obj2= new AddressBook ();
-                foreach (var book in dict) {
-                    if (book.Key == name){
-                     obj2 = dict[name];
-                        flag = 1;
+                bool flag=true;
+                foreach(var d in dict)
+                {
+                    if (d.Key == name)
+                    {
+                        Console.WriteLine ("user Already present ");
+                        flag= false;
+                        break;
                     }
                 }
-                if(flag == 0) {
-                    Console.WriteLine("User not found");
-                } 
-                
+                if (flag)
+                {
+                    dict.Add(name, book);
+                    Console.WriteLine("User added successfully in the addressBook");
+                }
             }
+         
             public Dictionary<string, AddressBook> GetPersons()
             {
                 return dict;
@@ -340,6 +384,10 @@ namespace AddressBookSystem
                     Console.WriteLine(book.Key);
                 }
             }
+            public AddressBook GetAddressBook(string name) {
+                return dict[name];
+            }
+            
         }
     }
 }
