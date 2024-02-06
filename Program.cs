@@ -52,8 +52,9 @@ namespace AddressBookSystem
                                 Console.WriteLine("2.To Display the contact in Address Book");
                                 Console.WriteLine("3.TO Edit the contact in Address Book");
                                 Console.WriteLine("4.TO remove the contact in Address Book");
-                                Console.WriteLine("5 To display contact by city");
-                                Console.WriteLine("6.TO Exit from the Address Book");
+                                Console.WriteLine("5.To display city and state by using name");
+                                Console.WriteLine("6 To display contact by city");
+                                Console.WriteLine("7.TO Exit from the Address Book");
                                 op = Convert.ToInt32(Console.ReadLine());
                                 switch (op)
                                 {
@@ -83,7 +84,13 @@ namespace AddressBookSystem
                                         break;
                                     case 5:
                                         Console.Clear();
-                                        obj.search();
+                                        obj.searchByName();
+                                        Thread.Sleep(2000);
+                                        Console.Clear();
+                                        break;
+                                    case 6:
+                                        Console.Clear();
+                                        obj.searchByCity();
                                         Thread.Sleep(2000);
                                         Console.Clear();
                                         break;
@@ -92,14 +99,14 @@ namespace AddressBookSystem
                             else
                             {
                                 Console.WriteLine("user is not there in the AddressBook");
-                                op = 5;
+                                op = 7;
                                 Thread.Sleep(4000);
                                 Console.Clear();
                                 break;
 
                             }
 
-                        } while (op != 5);
+                        } while (op != 7);
 
                         Console.Clear();
                         break;

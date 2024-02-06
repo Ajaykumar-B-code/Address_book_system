@@ -53,7 +53,7 @@ namespace AddressBookSystem
             }
             while (!Regex.IsMatch(zip, zippattern));
             Console.Write("email: ");
-            string email_pattern = "^[a-zA-z0-9]+[@]+[a-z]+[.]+[a-z]{1,3}$";
+            string email_pattern = "^[a-zA-Z0-9]+[@][a-z]+[.][a-z]{1,3}$";
             String email;
             do
             {
@@ -185,7 +185,7 @@ namespace AddressBookSystem
                 Console.WriteLine("Contact is not there in the addressBook");
             }
         }
-        public void search()
+        public void searchByCity()
         {
             Console.WriteLine("Enter the city name to get contact :");
             string city_name = Console.ReadLine();
@@ -194,6 +194,20 @@ namespace AddressBookSystem
                 if(con.City== city_name)
                 {
                     displayoneContact(con);
+                }
+            }
+        }
+        public void searchByName()
+        {
+            Console.WriteLine("Enter the name to get city and state :");
+            string name = Console.ReadLine();
+            foreach (var con in contacts)
+            {
+                string full_name = con.Fname + con.lastname;
+                if (full_name == name)
+                {
+                    Console.WriteLine($"city:{con.City}");
+                    Console.WriteLine($"state:{con.State}");
                 }
             }
         }
