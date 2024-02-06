@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -189,13 +190,16 @@ namespace AddressBookSystem
         {
             Console.WriteLine("Enter the city name to get contact :");
             string city_name = Console.ReadLine();
+            int count = 0;
             foreach(var con in contacts)
             {
                 if(con.City== city_name)
                 {
                     displayoneContact(con);
+                    count++;
                 }
             }
+            Console.WriteLine($"count:{count}");
         }
         public void searchByName()
         {
@@ -212,4 +216,3 @@ namespace AddressBookSystem
             }
         }
     }
-}
