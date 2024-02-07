@@ -23,8 +23,8 @@ namespace AddressBookSystem
                 Console.WriteLine("1.To add User ");
                 Console.WriteLine("2.To perform operation in the AddressBook");
                 Console.WriteLine("3.To display User's of AddressBook");
-                Console.WriteLine("4.To find the city of the contact person");
-                Console.WriteLine("4.To exit ");
+                Console.WriteLine("4 To display");
+                Console.WriteLine("6.To exit ");
                 int operation = Convert.ToInt16(Console.ReadLine());
 
                 switch (operation)
@@ -54,7 +54,8 @@ namespace AddressBookSystem
                                 Console.WriteLine("4.TO remove the contact in Address Book");
                                 Console.WriteLine("5.To display city and state by using name");
                                 Console.WriteLine("6 To display contact by city");
-                                Console.WriteLine("7.TO Exit from the Address Book");
+                                Console.WriteLine("7 To sort the contact and display");
+                                Console.WriteLine("8.TO Exit from the Address Book");
                                 op = Convert.ToInt32(Console.ReadLine());
                                 switch (op)
                                 {
@@ -94,19 +95,25 @@ namespace AddressBookSystem
                                         Thread.Sleep(2000);
                                         Console.Clear();
                                         break;
+                                    case 7:
+                                        Console.Clear();
+                                        obj.SortContact();
+                                        Thread.Sleep(2000);
+                                        Console.Clear();
+                                        break;
                                 }
                             }
                             else
                             {
                                 Console.WriteLine("user is not there in the AddressBook");
-                                op = 7;
+                                op = 8;
                                 Thread.Sleep(4000);
                                 Console.Clear();
                                 break;
 
                             }
 
-                        } while (op != 7);
+                        } while (op != 8);
 
                         Console.Clear();
                         break;
@@ -117,8 +124,14 @@ namespace AddressBookSystem
                         Thread.Sleep(5000);
                         Console.Clear();
                         break;
+                    case 4:
+                        Console.Clear();
+                        Console.WriteLine("disp");
+                        user.Allcontact();
+                        Thread.Sleep(5000);
+                        Console.Clear();
+                        break;
                     case 5:
-
                         flag = false;
                         break;
                 }

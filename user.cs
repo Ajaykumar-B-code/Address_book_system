@@ -10,7 +10,6 @@ namespace AddressBookSystem
     internal class User
     {
         Dictionary<string, AddressBook> dict = new Dictionary<string, AddressBook>();
-
         public User()
         {
             dict = new Dictionary<string, AddressBook>();
@@ -46,10 +45,33 @@ namespace AddressBookSystem
                 Console.WriteLine(book.Key);
             }
         }
+        public void displayoneContact(Contact con)
+        {
+            Console.WriteLine($"FirstName: {con.Fname}");
+            Console.WriteLine($"lastname: {con.lastname}");
+            Console.WriteLine($"address: {con.Addres}");
+            Console.WriteLine($"city: {con.City}");
+            Console.WriteLine($"state: {con.State}");
+            Console.WriteLine($"zip: {con.ZipCode}");
+            Console.WriteLine($"email: {con.Email}");
+            Console.WriteLine($"Phone number: {con.PhoneNumber}");
+            Console.WriteLine("----------------------------------------");
+        }
         public AddressBook GetAddressBook(string name)
         {
             return dict[name];
         }
-
+        public void Allcontact()
+        {
+            List<Contact> co = new List<Contact>();
+            foreach (var d in dict.Values)
+            {
+                co.AddRange(d.all());
+            }
+            foreach (var c in co)
+            {
+                displayoneContact(c);
+            }
+        }        
     }
 }

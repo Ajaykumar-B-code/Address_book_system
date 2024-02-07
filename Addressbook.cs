@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace AddressBookSystem
     public class AddressBook
     {
         List<Contact> contacts = new List<Contact>();
+        Dictionary<string,Contact> dict = new Dictionary<string, Contact>();
         public void add_contact()
         {
             Console.Write("first name: ");
@@ -79,12 +81,12 @@ namespace AddressBookSystem
             } while (!Regex.IsMatch(phone, phonePattern));
             Contact newcon = new Contact(first_name, last_name, address, city, state, zip, phone_number, email);
             contacts.Add(newcon);
+            dict.Add(first_name, newcon);
         }
         public void display()
         {
             foreach (var con in contacts)
             {
-
                 Console.WriteLine($"FirstName: {con.Fname}");
                 Console.WriteLine($"lastname: {con.lastname}");
                 Console.WriteLine($"address: {con.Addres}");
@@ -97,16 +99,16 @@ namespace AddressBookSystem
             }
         }
         public void displayoneContact(Contact con)
-        {    
-                Console.WriteLine($"FirstName: {con.Fname}");
-                Console.WriteLine($"lastname: {con.lastname}");
-                Console.WriteLine($"address: {con.Addres}");
-                Console.WriteLine($"city: {con.City}");
-                Console.WriteLine($"state: {con.State}");
-                Console.WriteLine($"zip: {con.ZipCode}");
-                Console.WriteLine($"email: {con.Email}");
-                Console.WriteLine($"Phone number: {con.PhoneNumber}");
-                Console.WriteLine("----------------------------------------");
+        {
+            Console.WriteLine($"FirstName: {con.Fname}");
+            Console.WriteLine($"lastname: {con.lastname}");
+            Console.WriteLine($"address: {con.Addres}");
+            Console.WriteLine($"city: {con.City}");
+            Console.WriteLine($"state: {con.State}");
+            Console.WriteLine($"zip: {con.ZipCode}");
+            Console.WriteLine($"email: {con.Email}");
+            Console.WriteLine($"Phone number: {con.PhoneNumber}");
+            Console.WriteLine("----------------------------------------");
         }
         public void edit()
         {
@@ -166,7 +168,7 @@ namespace AddressBookSystem
 
             }
         }
-       public void remove()
+        public void remove()
         {
             int flag = 0;
             Console.WriteLine("Enter the mail id of the contact to edit");
@@ -191,9 +193,9 @@ namespace AddressBookSystem
             Console.WriteLine("Enter the city name to get contact :");
             string city_name = Console.ReadLine();
             int count = 0;
-            foreach(var con in contacts)
+            foreach (var con in contacts)
             {
-                if(con.City== city_name)
+                if (con.City == city_name)
                 {
                     displayoneContact(con);
                     count++;
@@ -215,4 +217,16 @@ namespace AddressBookSystem
                 }
             }
         }
+        public void SortContact()
+        {
+           foreach(var de in dict)
+            {
+                displayoneContact(de.Value);
+            }
+        }
+        public List<Contact> all()
+        {
+            return contacts;
+        }
     }
+}
