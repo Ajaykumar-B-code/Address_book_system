@@ -83,7 +83,26 @@ namespace AddressBookSystem
             contacts.Add(newcon);
             dict.Add(first_name, newcon);
         }
+        public void SortContactsByName()
+        {
+            contacts.Sort((x, y) => x.Fname.CompareTo(y.Fname));
+        }
         public void display()
+        {
+            foreach (var con in contacts)
+            {
+                Console.WriteLine($"FirstName: {con.Fname}");
+                Console.WriteLine($"lastname: {con.lastname}");
+                Console.WriteLine($"address: {con.Addres}");
+                Console.WriteLine($"city: {con.City}");
+                Console.WriteLine($"state: {con.State}");
+                Console.WriteLine($"zip: {con.ZipCode}");
+                Console.WriteLine($"email: {con.Email}");
+                Console.WriteLine($"Phone number: {con.PhoneNumber}");
+                Console.WriteLine("----------------------------------------");
+            }
+        }
+        public void displaybycityorstate(List<Contact> contacts)
         {
             foreach (var con in contacts)
             {
@@ -109,6 +128,14 @@ namespace AddressBookSystem
             Console.WriteLine($"email: {con.Email}");
             Console.WriteLine($"Phone number: {con.PhoneNumber}");
             Console.WriteLine("----------------------------------------");
+        }
+        public void displaybyname(List<Contact> l)
+        {
+            foreach(var con in l) {
+                Console.WriteLine($"city: {con.City}");
+                Console.WriteLine($"state: {con.State}");
+                Console.WriteLine("----------------------------------------");
+            }
         }
         public void edit()
         {
@@ -188,34 +215,18 @@ namespace AddressBookSystem
                 Console.WriteLine("Contact is not there in the addressBook");
             }
         }
-        public void searchByCity()
+      
+        public List<Contact> SearchByCity(string city)
         {
-            Console.WriteLine("Enter the city name to get contact :");
-            string city_name = Console.ReadLine();
-            int count = 0;
-            foreach (var con in contacts)
-            {
-                if (con.City == city_name)
-                {
-                    displayoneContact(con);
-                    count++;
-                }
-            }
-            Console.WriteLine($"count:{count}");
+            return contacts.Where(contact => contact.City.Equals(city, StringComparison.OrdinalIgnoreCase)).ToList();
         }
-        public void searchByName()
+        public List<Contact> SearchByState(string state)
         {
-            Console.WriteLine("Enter the name to get city and state :");
-            string name = Console.ReadLine();
-            foreach (var con in contacts)
-            {
-                string full_name = con.Fname + con.lastname;
-                if (full_name == name)
-                {
-                    Console.WriteLine($"city:{con.City}");
-                    Console.WriteLine($"state:{con.State}");
-                }
-            }
+            return contacts.Where(contact => contact.State.Equals(state, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+        public List<Contact> SearchByName(string name)
+        {
+            return contacts.Where(contact => contact.Fname.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList();
         }
         public void SortContact()
         {

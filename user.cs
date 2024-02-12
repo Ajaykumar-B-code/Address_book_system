@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace AddressBookSystem
     internal class User
     {
         Dictionary<string, AddressBook> dict = new Dictionary<string, AddressBook>();
+        List<Contact> co = new List<Contact>();
         public User()
         {
             dict = new Dictionary<string, AddressBook>();
@@ -61,17 +63,35 @@ namespace AddressBookSystem
         {
             return dict[name];
         }
-        public void Allcontact()
+   
+        public List<Contact> SearchPersonsInCity(string city)
         {
-            List<Contact> co = new List<Contact>();
-            foreach (var d in dict.Values)
+            List<Contact> results = new List<Contact>();
+            foreach (var addressBook in dict.Values)
             {
-                co.AddRange(d.all());
+                results.AddRange(addressBook.SearchByCity(city));
             }
-            foreach (var c in co)
+            return results;
+        }
+        public List<Contact> SearchPersonsInState(string state)
+        {
+            List<Contact> results = new List<Contact>();
+            foreach (var addressBook in dict.Values)
             {
-                displayoneContact(c);
+                results.AddRange(addressBook.SearchByState(state));
             }
-        }        
+            return results;
+        }
+        public List<Contact> SearchPersonsInName(string name)
+        {
+            List<Contact> results = new List<Contact>();
+            foreach (var addressBook in dict.Values)
+            {
+                results.AddRange(addressBook.SearchByName(name));
+            }
+            return results;
+        }
+
     }
+
 }
