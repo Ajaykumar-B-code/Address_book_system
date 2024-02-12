@@ -91,6 +91,46 @@ namespace AddressBookSystem
             }
             return results;
         }
+        public List<Contact> SortAllContactsByName()
+        {
+            List<Contact> sortedContacts = new List<Contact>();
+            foreach (var addressBook in dict.Values)
+            {
+                sortedContacts.AddRange(addressBook.all());
+            }
+            sortedContacts.Sort((x, y) => x.Fname.CompareTo(y.Fname));
+            return sortedContacts;
+        }
+        public List<Contact> SortAllContactsByCity()
+        {
+            List<Contact> sortedContacts = new List<Contact>();
+            foreach (var addressBook in dict.Values)
+            {
+                sortedContacts.AddRange(addressBook.all()); // use the GetAllContacts method
+            }
+            sortedContacts.Sort((x, y) => x.City.CompareTo(y.City));
+            return sortedContacts;
+        }
+        public List<Contact> SortAllContactsByState()
+        {
+            List<Contact> sortedContacts = new List<Contact>();
+            foreach (var addressBook in dict.Values)
+            {
+                sortedContacts.AddRange(addressBook.all()); // use the GetAllContacts method
+            }
+            sortedContacts.Sort((x, y) => x.State.CompareTo(y.State));
+            return sortedContacts;
+        }
+        public List<Contact> SortAllContactsByZip()
+        {
+            List<Contact> sortedContacts = new List<Contact>();
+            foreach (var addressBook in dict.Values)
+            {
+                sortedContacts.AddRange(addressBook.all()); // use the GetAllContacts method
+            }
+            sortedContacts.Sort((x, y) => x.ZipCode.CompareTo(y.ZipCode));
+            return sortedContacts;
+        }
 
     }
 

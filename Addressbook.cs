@@ -83,10 +83,7 @@ namespace AddressBookSystem
             contacts.Add(newcon);
             dict.Add(first_name, newcon);
         }
-        public void SortContactsByName()
-        {
-            contacts.Sort((x, y) => x.Fname.CompareTo(y.Fname));
-        }
+       
         public void display()
         {
             foreach (var con in contacts)

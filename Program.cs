@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -21,15 +22,16 @@ namespace AddressBookSystem
             do
             {
                 Console.WriteLine("Enter the operation to perform by the user");
-                Console.WriteLine("1.To add User ");
+                Console.WriteLine("1.To add name of the AddressBook ");
                 Console.WriteLine("2.To perform operation in the AddressBook");
-                Console.WriteLine("3.To display User's of AddressBook");
+                Console.WriteLine("3.To display name of AddressBook");
                 Console.WriteLine("4 To seach by name");
                 Console.WriteLine("5 To search by city");
                 Console.WriteLine("6 To search by state");
-                Console.WriteLine("7.To count by contact by city");
-                Console.WriteLine("8.To count by contact by state");
-                Console.WriteLine("8.To exit");
+                Console.WriteLine("7.To count the contacts by city");
+                Console.WriteLine("8.To count the contacts by state");
+                Console.WriteLine("9 to sort the contacts");
+                Console.WriteLine("10.To exit");
                 int operation = Convert.ToInt16(Console.ReadLine());
 
                 switch (operation)
@@ -45,7 +47,7 @@ namespace AddressBookSystem
                     case 2:
                         int op;
                         Console.Clear();
-                        Console.WriteLine("Enter the name of the person's AddressBook: ");
+                        Console.WriteLine("Enter the name of the AddressBook: ");
                         string fname = Console.ReadLine();
                         do
                         {
@@ -158,6 +160,49 @@ namespace AddressBookSystem
                         Console.Clear();
                         break;
                     case 9:
+                        Console.Clear();
+                        Console.WriteLine("Enter an option to sort contacts: ");
+                        Console.WriteLine("1. Sort by Name\n2. Sort by City\n3. Sort by State\n4. Sort by Zip\n5. Exit");
+                        int sortChoice = Convert.ToInt32(Console.ReadLine());
+                        switch (sortChoice)
+                        {
+                            case 1:
+                                Console.Clear();
+                                List<Contact> sortedByName = user.SortAllContactsByName();
+                                obj1.displaybycityorstate(sortedByName);
+                                Thread.Sleep(4000);
+                                Console.Clear();
+                                break;
+                            case 2:
+                                Console.Clear();
+                                List<Contact> sortedbyCity = user.SortAllContactsByCity();
+                                obj1.displaybycityorstate(sortedbyCity);
+                                Thread.Sleep(4000);
+                                Console.Clear();
+                                break;
+                            case 3:
+                                Console.Clear();
+                                List<Contact> sortedbyState = user.SortAllContactsByState();
+                                obj1.displaybycityorstate(sortedbyState);
+                                Thread.Sleep(4000);
+                                Console.Clear();
+                                break;
+                            case 4:
+                                Console.Clear();
+                                List<Contact> sortedbyZip = user.SortAllContactsByZip();
+                                obj1.displaybycityorstate(sortedbyZip);
+                                Thread.Sleep(4000);
+                                Console.Clear();
+                                break;
+                            case 5:
+                                Console.Clear();
+                                Console.WriteLine("Invalid Choice! Exit");
+                                Thread.Sleep(4000);
+                                Console.Clear();
+                                break;
+                        }
+                        break;
+                    case 10:
                         flag = false;
                         break;
                 }
