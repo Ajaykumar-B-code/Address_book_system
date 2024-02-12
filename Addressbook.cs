@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -79,7 +80,18 @@ namespace AddressBookSystem
                     Console.WriteLine("Enter the valid number");
                 }
             } while (!Regex.IsMatch(phone, phonePattern));
-            Contact newcon = new Contact(first_name, last_name, address, city, state, zip, phone_number, email);
+            Contact newcon = new Contact
+            {
+                Fname = first_name,
+                lastname = last_name,
+                Addres = address,
+                City = city,
+                State = state,
+                PhoneNumber = phone_number, 
+                Email = email,
+                ZipCode = zip
+            };
+           // Contact newcon = new Contact(first_name, last_name, address, city, state, zip, phone_number, email);
             contacts.Add(newcon);
             dict.Add(first_name, newcon);
         }

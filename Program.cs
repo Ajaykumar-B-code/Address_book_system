@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
@@ -17,6 +18,7 @@ namespace AddressBookSystem
         {
             User user = new User();
             AddressBook obj1 = new AddressBook();
+            fileop file = new fileop();
 
             bool flag = true;
             do
@@ -31,7 +33,8 @@ namespace AddressBookSystem
                 Console.WriteLine("7.To count the contacts by city");
                 Console.WriteLine("8.To count the contacts by state");
                 Console.WriteLine("9 to sort the contacts");
-                Console.WriteLine("10.To exit");
+                Console.WriteLine("10.To write in the file");
+                Console.WriteLine("11 To exit");
                 int operation = Convert.ToInt16(Console.ReadLine());
 
                 switch (operation)
@@ -59,6 +62,7 @@ namespace AddressBookSystem
                                 Console.WriteLine("2.To Display the contact in Address Book");
                                 Console.WriteLine("3.TO Edit the contact in Address Book");
                                 Console.WriteLine("4.TO remove the contact in Address Book");
+
                                 Console.WriteLine("5.TO Exit from the Address Book");
                                 op = Convert.ToInt32(Console.ReadLine());
                                 switch (op)
@@ -86,7 +90,7 @@ namespace AddressBookSystem
                                         obj.remove();
                                         Thread.Sleep(2000);
                                         Console.Clear();
-                                        break;   
+                                        break;
                                 }
                             }
                             else
@@ -114,7 +118,7 @@ namespace AddressBookSystem
                         List<Contact> clist = new List<Contact>();
                         Console.WriteLine("Enter the name of the person");
                         string searchname = Console.ReadLine();
-                        clist=user.SearchPersonsInName(searchname);
+                        clist = user.SearchPersonsInName(searchname);
                         obj1.displaybyname(clist);
                         Thread.Sleep(5000);
                         Console.Clear();
@@ -203,10 +207,23 @@ namespace AddressBookSystem
                         }
                         break;
                     case 10:
+                        Console.Clear();
+                        file.SaveAddressBook(user.GetPersons());
+                        Thread.Sleep(4000);
+                        Console.Clear();
+                        break;
+                    case 11:
+                        Console.Clear();
+                        file.LoadAddressBook();
+                        Thread.Sleep(4000);
+                        Console.Clear();
+                        break;
+                    case 12:
                         flag = false;
                         break;
                 }
             } while (flag);
         }
+        
     }
 }
