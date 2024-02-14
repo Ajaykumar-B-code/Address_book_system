@@ -34,7 +34,10 @@ namespace AddressBookSystem
                 Console.WriteLine("8.To count the contacts by state");
                 Console.WriteLine("9 to sort the contacts");
                 Console.WriteLine("10.To write in the file");
-                Console.WriteLine("11 To exit");
+                Console.WriteLine("11 To read from the file");
+                Console.WriteLine("12.To write in the csv file");
+                Console.WriteLine("13.To Read in the csv file");
+                Console.WriteLine("14 To exit");
                 int operation = Convert.ToInt16(Console.ReadLine());
 
                 switch (operation)
@@ -219,6 +222,18 @@ namespace AddressBookSystem
                         Console.Clear();
                         break;
                     case 12:
+                        Console.Clear();
+                        file.WriteCSV(user.GetPersons());
+                        Thread.Sleep(4000);
+                        Console.Clear();
+                        break;
+                    case 13:
+                        Console.Clear();
+                        file.ReadCSV();
+                        Thread.Sleep(4000);
+                        Console.Clear();
+                        break;
+                    case 14:
                         flag = false;
                         break;
                 }
